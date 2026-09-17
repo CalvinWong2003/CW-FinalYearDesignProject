@@ -1,0 +1,1041 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &140246194072488185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7083982327498454436}
+  m_Layer: 0
+  m_Name: BridgeBarrier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7083982327498454436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140246194072488185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2913835901812606640}
+  - {fileID: 7826423334696501453}
+  - {fileID: 7169750176140324455}
+  - {fileID: 1183835019049407528}
+  - {fileID: 6446305196996198302}
+  - {fileID: 557099469288233954}
+  - {fileID: 4105075569377699992}
+  - {fileID: 268662977347094078}
+  - {fileID: 5031601113431889130}
+  - {fileID: 4910119158356897917}
+  - {fileID: 1768838791700188816}
+  - {fileID: 5512553892420793750}
+  - {fileID: 5074135580893723603}
+  - {fileID: 5523794251824379888}
+  - {fileID: 5491394371513088781}
+  - {fileID: 5878698703019873226}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &102847923582947528
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &1183835019049407528 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 102847923582947528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &688098064148154992
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (10)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &1768838791700188816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 688098064148154992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1349614809251136222
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &268662977347094078 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 1349614809251136222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1638051380649008898
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &557099469288233954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 1638051380649008898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3024334766665346168
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &4105075569377699992 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 3024334766665346168}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4139008554365731408
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &2913835901812606640 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 4139008554365731408}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4653877971497211690
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (15)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5878698703019873226 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 4653877971497211690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5221167739818851198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &6446305196996198302 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 5221167739818851198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6112341838835126282
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5031601113431889130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6112341838835126282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6135186188805616797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (9)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &4910119158356897917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6135186188805616797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6298921125627887411
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (12)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5074135580893723603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6298921125627887411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6716531839693635565
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5491394371513088781 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6716531839693635565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6737444999130509686
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5512553892420793750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6737444999130509686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6748861273951302416
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (13)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &5523794251824379888 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 6748861273951302416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8250772385112042119
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &7169750176140324455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 8250772385112042119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9051595918532281389
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7083982327498454436}
+    m_Modifications:
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+      propertyPath: m_Name
+      value: ChiseledStoneBricks (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+--- !u!4 &7826423334696501453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1225172652555486432, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  m_PrefabInstance: {fileID: 9051595918532281389}
+  m_PrefabAsset: {fileID: 0}
