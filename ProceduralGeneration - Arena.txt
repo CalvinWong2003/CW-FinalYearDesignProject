@@ -12,8 +12,8 @@ public class TowerPatternGenerator : MonoBehaviour
     public int currentFloor = 1;
 
     [Header("Arena Dimensions")]
-    public int towerRadius = 7; 
-    public int gridSize = 15;   
+    public int towerRadius = 15; 
+    public int gridSize = 30;   
 
     [Header("Voxel Palette (Minecraft Aesthetic)")]
     [Tooltip("Assign multiple floor blocks here (e.g., Stone Bricks, Mossy Cobble, Basalt, etc.)")]
