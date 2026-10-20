@@ -12,8 +12,16 @@ public class TowerGeneratorScript : MonoBehaviour
     public int currentFloor = 1;
 
     [Header("Arena Dimensions")]
+    [Tooltip("Radius of the playable circular floor.")]
     public int towerRadius = 15;
-    public int gridSize = 30;
+
+    [Range(1, 10)]
+    [Tooltip("Height of the surrounding perimeter walls in blocks (up to 10).")]
+    public int wallHeight = 10;
+
+    [Tooltip("Thickness of the outer boundary wall ring.")]
+    [Range(1, 4)]
+    public int wallThickness = 2;
 
     [Header("Voxel Palette (Minecraft Aesthetic)")]
     [Tooltip("Assign multiple floor blocks here (e.g., Stone Bricks, Mossy Cobble, Basalt, etc.)")]
@@ -27,8 +35,9 @@ public class TowerGeneratorScript : MonoBehaviour
     public GameObject entityPrefab;
     public int spawned;
 
-    // Internal Grid: 0 = Empty, 1 = Floor, 2 = Wall, 3 = Spawn, 4 = Exit, 5 = Hazard
+    // Internal Grid: 0 = Void, 1 = Floor, 2 = Wall, 3 = Spawn, 4 = Exit, 5 = Hazard
     private int[,] arenaGrid;
+    private int currentGridSize;
     private Vector2Int spawnPos;
     private Vector2Int exitPos;
 
@@ -54,8 +63,10 @@ public class TowerGeneratorScript : MonoBehaviour
         // Clear previous layer visuals
         foreach (Transform child in transform) { Destroy(child.gameObject); }
 
-        arenaGrid = new int[gridSize, gridSize];
-        floorVisualMatrix = new int[gridSize, gridSize];
+        // Grid size is derived solely from tower radius + wall boundary padding
+        currentGridSize = (towerRadius + wallThickness) * 2 + 1;
+        arenaGrid = new int[currentGridSize, currentGridSize];
+        floorVisualMatrix = new int[currentGridSize, currentGridSize];
 
         // Pick a floor architectural style based entirely on the floor seed
         FloorPatternStyle activePattern = (FloorPatternStyle)Random.Range(0, System.Enum.GetValues(typeof(FloorPatternStyle)).Length);
@@ -65,30 +76,33 @@ public class TowerGeneratorScript : MonoBehaviour
         int primaryBlockIndex = Random.Range(0, floorBlockPalette.Length);
         int secondaryBlockIndex = (primaryBlockIndex + 1) % floorBlockPalette.Length;
 
-        Vector2Int center = new Vector2Int(gridSize / 2, gridSize / 2);
+        // Exact mathematical center of the grid
+        Vector2Int center = new Vector2Int(towerRadius + wallThickness, towerRadius + wallThickness);
 
         // 2. Structural & Aesthetic Pattern Pass
-        for (int x = 0; x < gridSize; x++)
+        for (int x = 0; x < currentGridSize; x++)
         {
-            for (int z = 0; z < gridSize; z++)
+            for (int z = 0; z < currentGridSize; z++)
             {
                 float distanceFromCenter = Vector2.Distance(new Vector2(x, z), new Vector2(center.x, center.y));
 
-                if (distanceFromCenter > towerRadius)
+                if (distanceFromCenter <= towerRadius)
                 {
-                    arenaGrid[x, z] = 2; // Wall boundary constraint
+                    arenaGrid[x, z] = 1; // Playable floor
+                    floorVisualMatrix[x, z] = DeterminePatternBlock(x, z, distanceFromCenter, activePattern, primaryBlockIndex, secondaryBlockIndex);
+                }
+                else if (distanceFromCenter <= towerRadius + wallThickness)
+                {
+                    arenaGrid[x, z] = 2; // Outer wall perimeter ring
                 }
                 else
                 {
-                    arenaGrid[x, z] = 1; // Playable floor
-
-                    // Assign block pattern variation
-                    floorVisualMatrix[x, z] = DeterminePatternBlock(x, z, distanceFromCenter, activePattern, primaryBlockIndex, secondaryBlockIndex);
+                    arenaGrid[x, z] = 0; // Empty void outside the arena
                 }
             }
         }
 
-        // Place Entrance & Exit
+        // Place Entrance & Exit safely inside the circular floor boundary
         spawnPos = new Vector2Int(center.x, center.y - (towerRadius - 2));
         exitPos = new Vector2Int(center.x, center.y + (towerRadius - 2));
         arenaGrid[spawnPos.x, spawnPos.y] = 3;
@@ -102,30 +116,25 @@ public class TowerGeneratorScript : MonoBehaviour
             return;
         }
 
-        // 4. Hazard & Entity Placement Passes
-        ApplyHazardPass(center);
+        // 4. Hazard & Visual Placement Passes
+        ApplyHazardPass();
         InstantiateVisuals();
-        //ApplyEntityPass();
     }
 
-    // Mathematical rules matching coordinates to a selected Minecraft pattern style
     private int DeterminePatternBlock(int x, int z, float dist, FloorPatternStyle style, int primary, int secondary)
     {
-        if (floorBlockPalette.Length <= 1) return 0; // Fallback if only 1 prefab is assigned
+        if (floorBlockPalette.Length <= 1) return 0;
 
         switch (style)
         {
             case FloorPatternStyle.Checkered:
-                // Mathematical parity check (Alternating grid layout)
                 return ((x + z) % 2 == 0) ? primary : secondary;
 
             case FloorPatternStyle.ConcentricRings:
-                // Flips the texture palette based on distance fields from central axis
                 return (Mathf.FloorToInt(dist) % 2 == 0) ? primary : secondary;
 
             case FloorPatternStyle.RandomScatter:
             default:
-                // Fractured texture styling (e.g., 75% intact Stone Brick, 25% Cracked/Mossy variants)
                 return (Random.value < 0.25f) ? secondary : primary;
         }
     }
@@ -148,9 +157,9 @@ public class TowerGeneratorScript : MonoBehaviour
             foreach (var dir in directions)
             {
                 Vector2Int neighbor = current + dir;
-                if (neighbor.x >= 0 && neighbor.x < gridSize && neighbor.y >= 0 && neighbor.y < gridSize)
+                if (neighbor.x >= 0 && neighbor.x < currentGridSize && neighbor.y >= 0 && neighbor.y < currentGridSize)
                 {
-                    if (!visited.Contains(neighbor) && arenaGrid[neighbor.x, neighbor.y] != 2)
+                    if (!visited.Contains(neighbor) && arenaGrid[neighbor.x, neighbor.y] != 2 && arenaGrid[neighbor.x, neighbor.y] != 0)
                     {
                         visited.Add(neighbor);
                         queue.Enqueue(neighbor);
@@ -161,20 +170,18 @@ public class TowerGeneratorScript : MonoBehaviour
         return false;
     }
 
-    private void ApplyHazardPass(Vector2Int center)
+    private void ApplyHazardPass()
     {
-        for (int x = 0; x < gridSize; x++)
+        for (int x = 0; x < currentGridSize; x++)
         {
-            for (int z = 0; z < gridSize; z++)
+            for (int z = 0; z < currentGridSize; z++)
             {
                 if (arenaGrid[x, z] == 1 && Vector2Int.Distance(new Vector2Int(x, z), spawnPos) > 3f)
                 {
-                    if (Random.value == 4f)
+                    // 5% chance to place a hazard on open floor blocks away from spawn
+                    if (Random.value < 0.05f)
                     {
-                        Vector3 spawnWorldPos = new Vector3(0, 1.0f, 0);
-                        GameObject mob = Instantiate(entityPrefab, spawnWorldPos, Quaternion.identity, transform);
-                        mob.name = $"{entityPrefab.name} (Floor {currentFloor})";
-                        spawned++;
+                        arenaGrid[x, z] = 5;
                     }
                 }
             }
@@ -183,41 +190,52 @@ public class TowerGeneratorScript : MonoBehaviour
 
     private void InstantiateVisuals()
     {
-        for (int x = 0; x < gridSize; x++)
+        for (int x = 0; x < currentGridSize; x++)
         {
-            for (int z = 0; z < gridSize; z++)
+            for (int z = 0; z < currentGridSize; z++)
             {
-                Vector3 targetPos = new Vector3(x, 0, z);
+                // Centers the generated circle directly over the GameObject's local origin (0, 0, 0)
+                Vector3 targetPos = new Vector3(x - (currentGridSize / 2f), 0, z - (currentGridSize / 2f));
 
                 switch (arenaGrid[x, z])
                 {
-                    case 1: // Open Floor (Spawns the pattern index resolved earlier)
+                    case 1: // Open Floor
                         int blockIdx = floorVisualMatrix[x, z];
                         Instantiate(floorBlockPalette[blockIdx], targetPos, Quaternion.identity, transform);
                         break;
-                    case 2: // Wall Boundary
-                        Instantiate(wallPrefab, targetPos, Quaternion.identity, transform);
-                        Instantiate(wallPrefab, targetPos + Vector3.up, Quaternion.identity, transform);
+
+                    case 2: // Wall Boundary (Stacked vertically up to wallHeight)
+                        for (int y = 0; y < wallHeight; y++)
+                        {
+                            Vector3 wallBlockPos = targetPos + (Vector3.up * y);
+                            Instantiate(wallPrefab, wallBlockPos, Quaternion.identity, transform);
+                        }
                         break;
+
                     case 3: // Entrance Elevator
                         int spawnFloorIdx = floorVisualMatrix[x, z];
                         Instantiate(floorBlockPalette[spawnFloorIdx], targetPos, Quaternion.identity, transform);
                         Instantiate(spawnElevatorPrefab, targetPos + Vector3.up * 0.1f, Quaternion.identity, transform);
                         break;
+
                     case 4: // Exit Gate
                         int exitFloorIdx = floorVisualMatrix[x, z];
                         Instantiate(floorBlockPalette[exitFloorIdx], targetPos, Quaternion.identity, transform);
                         Instantiate(exitGatePrefab, targetPos + Vector3.up * 0.1f, Quaternion.identity, transform);
                         break;
+
                     case 5: // Hazard Block
                         Instantiate(magmaTrapPrefab, targetPos, Quaternion.identity, transform);
+                        break;
+
+                    case 0: // Void / Empty space
+                    default:
                         break;
                 }
             }
         }
     }
 
-    // Call this function via another script when the player triggers the floor completion event!
     public void GoToNextFloor()
     {
         currentFloor++;

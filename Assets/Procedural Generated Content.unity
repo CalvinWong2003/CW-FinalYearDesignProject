@@ -259,16 +259,20 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 009f80dd91301d54587cf24586d9e39d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::TowerGeneratorScript
   towerSeed: 0
   currentFloor: 1
   towerRadius: 15
-  gridSize: 30
-  floorBlockPalette: []
-  wallPrefab: {fileID: 0}
+  wallHeight: 10
+  wallThickness: 1
+  floorBlockPalette:
+  - {fileID: 7206622746052963701, guid: 19bae4487ac3d7a44bfda9b873525dfd, type: 3}
+  - {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
+  - {fileID: 4088286958055066122, guid: 235dfbfd7280e0045bbd4d4142541933, type: 3}
+  wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
   spawnElevatorPrefab: {fileID: 0}
   exitGatePrefab: {fileID: 0}
-  magmaTrapPrefab: {fileID: 0}
+  magmaTrapPrefab: {fileID: 3793849012309999058, guid: 36e62e2ca314f1a49a86174d1b43ce8f, type: 3}
   entityPrefab: {fileID: 0}
   spawned: 0
 --- !u!1 &1806095888
@@ -356,13 +360,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806095888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
+  m_LocalPosition: {x: -5, y: 20, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
