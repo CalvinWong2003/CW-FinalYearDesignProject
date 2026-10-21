@@ -257,18 +257,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296414192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 009f80dd91301d54587cf24586d9e39d, type: 3}
+  m_Script: {fileID: 11500000, guid: f24e4c340f9a7464eb2a19baa2bdba9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerGeneratorScript
   towerSeed: 0
   currentFloor: 1
-  towerRadius: 15
+  gridWidth: 40
+  gridLength: 40
   wallHeight: 10
-  wallThickness: 1
   floorBlockPalette:
+  - {fileID: 4088286958055066122, guid: 235dfbfd7280e0045bbd4d4142541933, type: 3}
   - {fileID: 7206622746052963701, guid: 19bae4487ac3d7a44bfda9b873525dfd, type: 3}
   - {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
-  - {fileID: 4088286958055066122, guid: 235dfbfd7280e0045bbd4d4142541933, type: 3}
+  - {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
   wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
   spawnElevatorPrefab: {fileID: 0}
   exitGatePrefab: {fileID: 0}
