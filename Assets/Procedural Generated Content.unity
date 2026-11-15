@@ -216,37 +216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1060059839
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1060059840}
-  m_Layer: 0
-  m_Name: Rare Ore Cluster
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1060059840
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060059839}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9331, y: 0, z: 12.54515}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1296414192
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,84 +262,141 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerGeneratorScript
   towerSeed: 0
   currentFloor: 1
-  gridWidth: 40
-  gridLength: 40
+  gridWidth: 30
+  gridLength: 30
   wallHeight: 10
   biomeThemes:
   - themeName: Overworld
-    themeSelectionWeight: 0
+    themeSelectionWeight: 1
     floorBlocks:
     - {fileID: 3032696259646870336, guid: de4e52efea803924db1f934dae9fc969, type: 3}
     - {fileID: 1677160994891781681, guid: a291aa04ca300ee49bd01b6c04674762, type: 3}
-    - {fileID: 2669010831397262433, guid: bfc15ca4cb8badf4194887e669535f8c, type: 3}
     - {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
-    - {fileID: 2799335884606096766, guid: bd1237cd1005e7e4f9da482e0cd5add1, type: 3}
-    wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
+    wallPrefab: {fileID: 0}
     hazardPrefab: {fileID: 0}
+    structurePool: []
+    minStructures: 0
+    maxStructures: 0
     mobPool:
     - mobName: Zombies
       mobPrefab: {fileID: 0}
-      spawnWeight: 8
+      spawnWeight: 0
     - mobName: Skeletons
       mobPrefab: {fileID: 0}
-      spawnWeight: 5
-    - mobName: Baby Zombies
+      spawnWeight: 0
+    - mobName: Creepers
       mobPrefab: {fileID: 0}
-      spawnWeight: 5
-    - mobName: Spiders
+      spawnWeight: 0
+  - themeName: Stone Caves
+    themeSelectionWeight: 1
+    floorBlocks:
+    - {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
+    wallPrefab: {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
+    hazardPrefab: {fileID: 0}
+    structurePool:
+    - structureName: Stone Pillar
+      structurePrefab: {fileID: 0}
+      spawnWeight: 0
+      yOffset: 0
+      randomizeRotation: 1
+    - structureName: Ore Cluster
+      structurePrefab: {fileID: 0}
+      spawnWeight: 0
+      yOffset: 0
+      randomizeRotation: 1
+    - structureName: Rare Ore Cluster
+      structurePrefab: {fileID: 0}
+      spawnWeight: 0
+      yOffset: 0
+      randomizeRotation: 1
+    - structureName: Extremely Rare Ore Cluster
+      structurePrefab: {fileID: 0}
+      spawnWeight: 0
+      yOffset: 0
+      randomizeRotation: 1
+    minStructures: 2
+    maxStructures: 5
+    mobPool:
+    - mobName: Zombies
       mobPrefab: {fileID: 0}
-      spawnWeight: 5
-  - themeName: Nether
-    themeSelectionWeight: 0
+      spawnWeight: 0
+    - mobName: Skeletons
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+    - mobName: Creepers
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+  - themeName: Deepslate Caves
+    themeSelectionWeight: 1
+    floorBlocks:
+    - {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
+    wallPrefab: {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
+    hazardPrefab: {fileID: 0}
+    structurePool: []
+    minStructures: 2
+    maxStructures: 5
+    mobPool:
+    - mobName: Zombies
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+    - mobName: Skeletons
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+    - mobName: Creepers
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+  - themeName: The Nether
+    themeSelectionWeight: 1
     floorBlocks:
     - {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
-    - {fileID: 5499317135102556311, guid: 9438613f8448e8c4791b4359e2a389af, type: 3}
-    - {fileID: 2992512597344331493, guid: 24ea524a87607a94691ec3021212778e, type: 3}
-    - {fileID: 4305753868236438199, guid: ac96ad27a48d0ec4e992404558aa8364, type: 3}
-    - {fileID: 3855351422114641684, guid: 2f5e40aa7f5b5244990a13ff422e4aaf, type: 3}
-    - {fileID: 120441098471516304, guid: 33391969d99ec144083f63fd11706e2a, type: 3}
-    - {fileID: 241454919675130641, guid: b538614b04a1720499932f2ffc55ae6c, type: 3}
-    - {fileID: 6947995141641889214, guid: 6d42c87d9f7295f49a23f595e49ac7be, type: 3}
-    wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
-    hazardPrefab: {fileID: 3793849012309999058, guid: 36e62e2ca314f1a49a86174d1b43ce8f, type: 3}
-    mobPool:
-    - mobName: Piglin
-      mobPrefab: {fileID: 0}
-      spawnWeight: 10
-    - mobName: Skeletons
-      mobPrefab: {fileID: 0}
-      spawnWeight: 3
-  - themeName: StrongHold
-    themeSelectionWeight: 0
-    floorBlocks:
-    - {fileID: 2669010831397262433, guid: bfc15ca4cb8badf4194887e669535f8c, type: 3}
-    - {fileID: 7206622746052963701, guid: 19bae4487ac3d7a44bfda9b873525dfd, type: 3}
-    - {fileID: 5381290351503299865, guid: 36d6b7113c7dd67429f1efcbdc8c6a52, type: 3}
-    - {fileID: 4088286958055066122, guid: 235dfbfd7280e0045bbd4d4142541933, type: 3}
-    - {fileID: 5590927012795881445, guid: 783657064738093409ed3c46fe3c7cee, type: 3}
-    - {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
-    - {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
-    wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
+    wallPrefab: {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
     hazardPrefab: {fileID: 0}
+    structurePool: []
+    minStructures: 2
+    maxStructures: 5
     mobPool:
-    - mobName: Zombies
+    - mobName: Zombie Pigmen
       mobPrefab: {fileID: 0}
-      spawnWeight: 15
+      spawnWeight: 0
     - mobName: Skeletons
       mobPrefab: {fileID: 0}
-      spawnWeight: 12
-    - mobName: Silverfish
+      spawnWeight: 0
+  - themeName: Bastion
+    themeSelectionWeight: 1
+    floorBlocks:
+    - {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
+    - {fileID: 2592617803214652086, guid: 285e9025374f0734eabd0f098e5dd9ca, type: 3}
+    - {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
+    - {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
+    wallPrefab: {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
+    hazardPrefab: {fileID: 3793849012309999058, guid: 36e62e2ca314f1a49a86174d1b43ce8f, type: 3}
+    structurePool:
+    - structureName: Gold Block Cluster
+      structurePrefab: {fileID: 4735493219983132522, guid: 4aa01744937244b4db1cbb76761ca004, type: 3}
+      spawnWeight: 10
+      yOffset: 0
+      randomizeRotation: 1
+    - structureName: Gold Block
+      structurePrefab: {fileID: 282132192367751760, guid: 422ea16f18fc1864f910ecf5e5582d08, type: 3}
+      spawnWeight: 4
+      yOffset: 0
+      randomizeRotation: 0
+    minStructures: 2
+    maxStructures: 5
+    mobPool:
+    - mobName: Piglin Brute
       mobPrefab: {fileID: 0}
-      spawnWeight: 20
-    - mobName: Spiders
+      spawnWeight: 0
+    - mobName: Piglins
       mobPrefab: {fileID: 0}
-      spawnWeight: 8
+      spawnWeight: 0
   spawnElevatorPrefab: {fileID: 6828158009164153187, guid: d19cfa9c99a65f64595425bd51e39183, type: 3}
   spawnElevatorRotationOffset: {x: 0, y: 180, z: 0}
   exitGatePrefab: {fileID: 6828158009164153187, guid: 078c171e5b9b37f4da10bc60005b1e04, type: 3}
   exitGateRotationOffset: {x: 0, y: 0, z: 0}
   hazardSpawnRate: 0.04
-  mobSpawnRate: 0.09
+  mobSpawnRate: 0.05
+  totalStructuresSpawned: 0
   totalMobsSpawned: 0
 --- !u!1 &1806095888
 GameObject:
@@ -471,4 +497,3 @@ SceneRoots:
   - {fileID: 1806095891}
   - {fileID: 863055401}
   - {fileID: 1296414193}
-  - {fileID: 1060059840}

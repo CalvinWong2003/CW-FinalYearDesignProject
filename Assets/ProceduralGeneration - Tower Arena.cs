@@ -15,16 +15,34 @@ public class TowerGeneratorScript : MonoBehaviour
     }
 
     [System.Serializable]
+    public class StructureSpawnData
+    {
+        public string structureName; // e.g., "Ore Cluster", "Cactus", "Ruined Pillar"
+        public GameObject structurePrefab;
+        [Range(1, 100)] public int spawnWeight = 10;
+        [Tooltip("Vertical offset from the top of the floor block (default 1.0 rests on top of floor)")]
+        public float yOffset = 1.0f;
+        [Tooltip("Allow random 90-degree Y rotations for visual variety")]
+        public bool randomizeRotation = true;
+    }
+
+    [System.Serializable]
     public class BiomeTheme
     {
-        public string themeName; // e.g., "Desert", "Overworld", "Nether", "End"
+        public string themeName; // e.g., "Desert", "Overworld", "Nether", "Deep Dark"
         [Range(1, 100)] public int themeSelectionWeight = 10;
 
         [Header("Block & Visual Palette")]
-        [Tooltip("Add the thematic blocks here (e.g. Desert: Sand, Sandstone, Smooth Sandstone)")]
+        [Tooltip("Add thematic blocks here (e.g. Desert: Sand, Sandstone, Smooth Sandstone)")]
         public GameObject[] floorBlocks;
         public GameObject wallPrefab;
-        public GameObject hazardPrefab; // e.g., Magma Block for Nether, Cactus/Spike for Desert
+        public GameObject hazardPrefab; // e.g., Magma Block for Nether, Quicksand/Trap for Desert
+
+        [Header("Thematic Structures (3 - 5 per floor)")]
+        [Tooltip("Prefabs such as ore clusters, cacti, pillars, or crystal formations")]
+        public List<StructureSpawnData> structurePool = new List<StructureSpawnData>();
+        [Min(0)] public int minStructures = 3;
+        [Min(0)] public int maxStructures = 5;
 
         [Header("Thematic Mob Pool")]
         [Tooltip("The mobs eligible to spawn on this specific biome floor")]
@@ -44,21 +62,22 @@ public class TowerGeneratorScript : MonoBehaviour
     [Range(1, 10)] public int wallHeight = 10;
 
     [Header("Biome Theming System")]
-    [Tooltip("Define multiple biomes with their own block palettes, walls, and mob rosters")]
+    [Tooltip("Define multiple biomes with their own block palettes, walls, structures, and mob rosters")]
     public List<BiomeTheme> biomeThemes = new List<BiomeTheme>();
 
     [Header("Elevator & Exit Gateways")]
     public GameObject spawnElevatorPrefab;
-    public Vector3 spawnElevatorRotationOffset = new Vector3(0, 180f, 0); // Corrects prefab orientation
+    public Vector3 spawnElevatorRotationOffset = new Vector3(0, 180f, 0);
     public GameObject exitGatePrefab;
     public Vector3 exitGateRotationOffset = Vector3.zero;
 
     [Header("Mob & Hazard Density")]
     [Range(0f, 0.2f)] public float hazardSpawnRate = 0.04f;
     [Range(0f, 0.2f)] public float mobSpawnRate = 0.05f;
+    public int totalStructuresSpawned;
     public int totalMobsSpawned;
 
-    // Internal Grid: 0 = Empty, 1 = Floor, 2 = Wall, 3 = Spawn, 4 = Exit, 5 = Hazard
+    // Internal Grid: 0 = Empty, 1 = Floor, 2 = Wall, 3 = Spawn, 4 = Exit, 5 = Hazard, 6 = Structure
     private int[,] arenaGrid;
     private Vector2Int spawnPos;
     private Vector2Int exitPos;
@@ -81,6 +100,7 @@ public class TowerGeneratorScript : MonoBehaviour
         UnityEngine.Random.InitState(floorSeed);
 
         totalMobsSpawned = 0;
+        totalStructuresSpawned = 0;
 
         // Clear previous layer objects (handles both Editor ContextMenu and runtime)
         for (int i = transform.childCount - 1; i >= 0; i--)
@@ -146,16 +166,19 @@ public class TowerGeneratorScript : MonoBehaviour
         arenaGrid[spawnPos.x, spawnPos.y] = 3;
         arenaGrid[exitPos.x, exitPos.y] = 4;
 
-        // 3. Path Validation
+        // 3. Hazards & Thematic Structures Placement
+        ApplyHazardPass();
+        ApplyStructurePass();
+
+        // 4. Path Validation (ensures structures don't wall off the exit)
         if (!IsCriticalPathValid(spawnPos, exitPos))
         {
-            Debug.LogWarning("[PCG System] Critical path invalid! Regenerating...");
+            Debug.LogWarning("[PCG System] Critical path blocked by structures! Regenerating...");
             GenerateFloor();
             return;
         }
 
-        // 4. Hazards, Spawns & Geometry Generation
-        ApplyHazardPass();
+        // 5. Geometry & Entity Instantiation
         InstantiateVisuals();
         ApplyMobSpawningPass();
     }
@@ -220,7 +243,9 @@ public class TowerGeneratorScript : MonoBehaviour
                 Vector2Int neighbor = current + dir;
                 if (neighbor.x >= 0 && neighbor.x < gridWidth && neighbor.y >= 0 && neighbor.y < gridLength)
                 {
-                    if (!visited.Contains(neighbor) && arenaGrid[neighbor.x, neighbor.y] != 2)
+                    int tile = arenaGrid[neighbor.x, neighbor.y];
+                    // Walls (2) and Structures (6) act as solid obstacles
+                    if (!visited.Contains(neighbor) && tile != 2 && tile != 6)
                     {
                         visited.Add(neighbor);
                         queue.Enqueue(neighbor);
@@ -250,6 +275,99 @@ public class TowerGeneratorScript : MonoBehaviour
         }
     }
 
+    private void ApplyStructurePass()
+    {
+        if (currentTheme.structurePool == null || currentTheme.structurePool.Count == 0) return;
+
+        int totalStructureWeight = 0;
+        foreach (var s in currentTheme.structurePool)
+        {
+            if (s.structurePrefab != null)
+            {
+                totalStructureWeight += Mathf.Max(1, s.spawnWeight);
+            }
+        }
+
+        if (totalStructureWeight == 0) return;
+
+        // Gather all valid interior floor coordinates (1 tile buffer from outer walls, away from spawn/exit)
+        List<Vector2Int> validSpots = new List<Vector2Int>();
+        for (int x = 2; x < gridWidth - 2; x++)
+        {
+            for (int z = 2; z < gridLength - 2; z++)
+            {
+                if (arenaGrid[x, z] == 1 &&
+                    Vector2Int.Distance(new Vector2Int(x, z), spawnPos) > 3.5f &&
+                    Vector2Int.Distance(new Vector2Int(x, z), exitPos) > 3.5f)
+                {
+                    validSpots.Add(new Vector2Int(x, z));
+                }
+            }
+        }
+
+        // Determine target count (between 3 and 5 by default)
+        int minCount = Mathf.Min(currentTheme.minStructures, currentTheme.maxStructures);
+        int maxCount = Mathf.Max(currentTheme.minStructures, currentTheme.maxStructures);
+        int targetStructures = UnityEngine.Random.Range(minCount, maxCount + 1);
+
+        List<Vector2Int> placedPositions = new List<Vector2Int>();
+
+        while (totalStructuresSpawned < targetStructures && validSpots.Count > 0)
+        {
+            int randIndex = UnityEngine.Random.Range(0, validSpots.Count);
+            Vector2Int candidate = validSpots[randIndex];
+            validSpots.RemoveAt(randIndex);
+
+            // Enforce minimum 3-block spacing between structures so they don't clump awkwardly
+            bool tooClose = false;
+            foreach (var placed in placedPositions)
+            {
+                if (Vector2Int.Distance(candidate, placed) < 3f)
+                {
+                    tooClose = true;
+                    break;
+                }
+            }
+
+            if (tooClose) continue;
+
+            StructureSpawnData selectedStructure = PickWeightedStructure(totalStructureWeight);
+            if (selectedStructure != null && selectedStructure.structurePrefab != null)
+            {
+                arenaGrid[candidate.x, candidate.y] = 6; // Mark cell as occupied by a structure
+                placedPositions.Add(candidate);
+
+                Vector3 spawnWorldPos = new Vector3(candidate.x, selectedStructure.yOffset, candidate.y);
+                Quaternion rot = selectedStructure.randomizeRotation
+                    ? Quaternion.Euler(0f, UnityEngine.Random.Range(0, 4) * 90f, 0f)
+                    : Quaternion.identity;
+
+                GameObject structObj = Instantiate(selectedStructure.structurePrefab, spawnWorldPos, rot, transform);
+                structObj.name = $"{selectedStructure.structurePrefab.name}_{currentTheme.themeName}_{totalStructuresSpawned}";
+                totalStructuresSpawned++;
+            }
+        }
+    }
+
+    private StructureSpawnData PickWeightedStructure(int totalWeight)
+    {
+        int roll = UnityEngine.Random.Range(0, totalWeight);
+        int running = 0;
+
+        foreach (var structure in currentTheme.structurePool)
+        {
+            if (structure.structurePrefab == null) continue;
+
+            running += Mathf.Max(1, structure.spawnWeight);
+            if (roll < running)
+            {
+                return structure;
+            }
+        }
+
+        return null;
+    }
+
     private void InstantiateVisuals()
     {
         for (int x = 0; x < gridWidth; x++)
@@ -261,6 +379,7 @@ public class TowerGeneratorScript : MonoBehaviour
                 switch (arenaGrid[x, z])
                 {
                     case 1: // Base Thematic Floor Block
+                    case 6: // Floor Block underneath a Structure
                         SpawnFloorTile(x, z, targetPos);
                         break;
 
@@ -279,7 +398,6 @@ public class TowerGeneratorScript : MonoBehaviour
                         SpawnFloorTile(x, z, targetPos);
                         if (spawnElevatorPrefab != null)
                         {
-                            // Spawned 1 full block above floor with explicit rotation override
                             Vector3 elevatorPos = targetPos + Vector3.up * 1.0f;
                             Quaternion elevatorRot = Quaternion.Euler(spawnElevatorRotationOffset);
                             Instantiate(spawnElevatorPrefab, elevatorPos, elevatorRot, transform);
@@ -290,7 +408,6 @@ public class TowerGeneratorScript : MonoBehaviour
                         SpawnFloorTile(x, z, targetPos);
                         if (exitGatePrefab != null)
                         {
-                            // Spawned 1 full block above floor
                             Vector3 gatePos = targetPos + Vector3.up * 1.0f;
                             Quaternion gateRot = Quaternion.Euler(exitGateRotationOffset);
                             Instantiate(exitGatePrefab, gatePos, gateRot, transform);
@@ -326,7 +443,6 @@ public class TowerGeneratorScript : MonoBehaviour
     {
         if (currentTheme.mobPool == null || currentTheme.mobPool.Count == 0) return;
 
-        // Calculate total weight of all mobs in this theme's pool
         int totalMobWeight = 0;
         foreach (var mob in currentTheme.mobPool)
         {
@@ -342,7 +458,7 @@ public class TowerGeneratorScript : MonoBehaviour
         {
             for (int z = 1; z < gridLength - 1; z++)
             {
-                // Only spawn mobs on playable floors away from the elevator
+                // Only spawn mobs on open playable floor tiles (arenaGrid == 1), avoiding structures (6) and hazards (5)
                 if (arenaGrid[x, z] == 1 && Vector2Int.Distance(new Vector2Int(x, z), spawnPos) > 4f)
                 {
                     if (UnityEngine.Random.value < mobSpawnRate)
@@ -350,7 +466,6 @@ public class TowerGeneratorScript : MonoBehaviour
                         GameObject selectedMobPrefab = PickWeightedMob(totalMobWeight);
                         if (selectedMobPrefab != null)
                         {
-                            // Spawn entity resting on the floor (Y = 1.0)
                             Vector3 spawnWorldPos = new Vector3(x, 1.0f, z);
                             GameObject mobObj = Instantiate(selectedMobPrefab, spawnWorldPos, Quaternion.identity, transform);
                             mobObj.name = $"{selectedMobPrefab.name}_Floor{currentFloor}_{totalMobsSpawned}";
