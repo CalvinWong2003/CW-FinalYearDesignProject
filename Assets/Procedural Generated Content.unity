@@ -262,21 +262,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerGeneratorScript
   towerSeed: 0
   currentFloor: 1
-  gridWidth: 30
-  gridLength: 30
+  gridWidth: 50
+  gridLength: 50
   wallHeight: 10
   biomeThemes:
   - themeName: Overworld
     themeSelectionWeight: 1
-    floorBlocks:
-    - {fileID: 3032696259646870336, guid: de4e52efea803924db1f934dae9fc969, type: 3}
-    - {fileID: 1677160994891781681, guid: a291aa04ca300ee49bd01b6c04674762, type: 3}
-    - {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
-    wallPrefab: {fileID: 0}
+    primarySurfaceBlock: {fileID: 3032696259646870336, guid: de4e52efea803924db1f934dae9fc969, type: 3}
+    subSurfaceBlock: {fileID: 1677160994891781681, guid: a291aa04ca300ee49bd01b6c04674762, type: 3}
+    wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
     hazardPrefab: {fileID: 0}
-    structurePool: []
-    minStructures: 0
-    maxStructures: 0
+    blockPatches:
+    - blockName: Stone
+      blockPrefab: {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
+      patchCoverage: 0.15
+      veinScale: 0.25
+    maxElevationHeight: 2
+    terrainNoiseScale: 0.125
+    elevationThreshold: 0.5
+    structurePool:
+    - structureName: Bushes
+      structurePrefab: {fileID: 5143860127179929756, guid: 5245674c764ea0d4e97dfdcd47683ce5, type: 3}
+      spawnWeight: 3
+      yOffset: 1
+      randomizeRotation: 0
+    - structureName: Fallen Logs
+      structurePrefab: {fileID: 9129283185186332487, guid: 07690fa19f8181f4298e7fa9322f8eb7, type: 3}
+      spawnWeight: 2
+      yOffset: 1
+      randomizeRotation: 1
+    minStructures: 3
+    maxStructures: 6
     mobPool:
     - mobName: Zombies
       mobPrefab: {fileID: 0}
@@ -289,30 +305,66 @@ MonoBehaviour:
       spawnWeight: 0
   - themeName: Stone Caves
     themeSelectionWeight: 1
-    floorBlocks:
-    - {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
+    primarySurfaceBlock: {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
+    subSurfaceBlock: {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
     wallPrefab: {fileID: 6590546976003632850, guid: fe4c487d09274fd448a02cef1dea87b7, type: 3}
     hazardPrefab: {fileID: 0}
+    blockPatches:
+    - blockName: Coal Ore
+      blockPrefab: {fileID: 2341019137930940441, guid: 40e72f15f2a9c724e9af017391ff09d5, type: 3}
+      patchCoverage: 0.5
+      veinScale: 0.25
+    - blockName: Iron Ore
+      blockPrefab: {fileID: 8772458302475234718, guid: 1ed1174ff16405c428de25d7165d7bf0, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.25
+    - blockName: Gold Ore
+      blockPrefab: {fileID: 4003617113513625400, guid: 8850b19656fb4524b9519a9f8ed4b769, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.4
+    - blockName: Lapis Ore
+      blockPrefab: {fileID: 2607880891299208989, guid: 8762448e9e021084b985ebf12cc4e149, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.35
+    - blockName: Diamond Ore
+      blockPrefab: {fileID: 425937349329852160, guid: 86335755747c6124fb54c221ff8defa5, type: 3}
+      patchCoverage: 0.1
+      veinScale: 0.4
+    - blockName: Andesite
+      blockPrefab: {fileID: 7130448043336893897, guid: b5db285c5a0fdbf4cb2c00045bf2ba60, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.15
+    - blockName: Granite
+      blockPrefab: {fileID: 4240644896221760177, guid: 3f9ddaf1eec41c54d9f87db1a96c2352, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.15
+    - blockName: Diorite
+      blockPrefab: {fileID: 1306076720974617632, guid: e0a9e969acb1763468f77b8f505f7157, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.15
+    maxElevationHeight: 2
+    terrainNoiseScale: 0.09
+    elevationThreshold: 0.4
     structurePool:
     - structureName: Stone Pillar
-      structurePrefab: {fileID: 0}
-      spawnWeight: 0
-      yOffset: 0
+      structurePrefab: {fileID: 8489697426055762588, guid: cba13033bd16b0843b93b998ca262d3b, type: 3}
+      spawnWeight: 8
+      yOffset: 1
       randomizeRotation: 1
     - structureName: Ore Cluster
-      structurePrefab: {fileID: 0}
-      spawnWeight: 0
-      yOffset: 0
+      structurePrefab: {fileID: 850588675581344758, guid: e2ebd4169b4c58645989979687fdbb1a, type: 3}
+      spawnWeight: 4
+      yOffset: 1
       randomizeRotation: 1
     - structureName: Rare Ore Cluster
-      structurePrefab: {fileID: 0}
-      spawnWeight: 0
-      yOffset: 0
+      structurePrefab: {fileID: 4617134096230124741, guid: 1fe04470c0f813c4cb93c538bb98ce79, type: 3}
+      spawnWeight: 4
+      yOffset: 1
       randomizeRotation: 1
     - structureName: Extremely Rare Ore Cluster
-      structurePrefab: {fileID: 0}
-      spawnWeight: 0
-      yOffset: 0
+      structurePrefab: {fileID: 4940811779076990406, guid: e404638561cb08344acf743dd9e44447, type: 3}
+      spawnWeight: 4
+      yOffset: 1
       randomizeRotation: 1
     minStructures: 2
     maxStructures: 5
@@ -328,10 +380,38 @@ MonoBehaviour:
       spawnWeight: 0
   - themeName: Deepslate Caves
     themeSelectionWeight: 1
-    floorBlocks:
-    - {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
+    primarySurfaceBlock: {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
+    subSurfaceBlock: {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
     wallPrefab: {fileID: 219752660940458626, guid: 5bdca4291203828418ab22ddc28ba24c, type: 3}
     hazardPrefab: {fileID: 0}
+    blockPatches:
+    - blockName: Deepslate Coal Ore
+      blockPrefab: {fileID: 578482470324113262, guid: 302ef03595f10b745baedf52e35aacd6, type: 3}
+      patchCoverage: 0.3
+      veinScale: 0.2
+    - blockName: Deepslate Iron Ore
+      blockPrefab: {fileID: 8544918995502307486, guid: 72597e3931ff29342815af4a989dd383, type: 3}
+      patchCoverage: 0.5
+      veinScale: 0.4
+    - blockName: Deepslate Gold Ore
+      blockPrefab: {fileID: 9120485822033290488, guid: 3b96e6c862891584c8d777174005e74b, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.45
+    - blockName: Deepslate Lapis Ore
+      blockPrefab: {fileID: 6166894570419812974, guid: 8d8f1f821972e974bba23234f955e44f, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.45
+    - blockName: Deepslate Redstone Ore
+      blockPrefab: {fileID: 1304474455112701790, guid: b6111e9ed5cdd2b4985fb0d8d03df6a5, type: 3}
+      patchCoverage: 0.3
+      veinScale: 0.45
+    - blockName: Deepslate Diamond Ore
+      blockPrefab: {fileID: 5593394642636733812, guid: c02183b3a1cce5d4280eb30d14d3aba2, type: 3}
+      patchCoverage: 0.1
+      veinScale: 0.45
+    maxElevationHeight: 3
+    terrainNoiseScale: 0.1
+    elevationThreshold: 0.48
     structurePool: []
     minStructures: 2
     maxStructures: 5
@@ -347,10 +427,34 @@ MonoBehaviour:
       spawnWeight: 0
   - themeName: The Nether
     themeSelectionWeight: 1
-    floorBlocks:
-    - {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
+    primarySurfaceBlock: {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
+    subSurfaceBlock: {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
     wallPrefab: {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
     hazardPrefab: {fileID: 0}
+    blockPatches:
+    - blockName: Netherrack Gold Ore
+      blockPrefab: {fileID: 5499317135102556311, guid: 9438613f8448e8c4791b4359e2a389af, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.1
+    - blockName: Netherrack Quartz Ore
+      blockPrefab: {fileID: 2992512597344331493, guid: 24ea524a87607a94691ec3021212778e, type: 3}
+      patchCoverage: 0.2
+      veinScale: 0.1
+    - blockName: Blackstone
+      blockPrefab: {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
+      patchCoverage: 0.3
+      veinScale: 0.18
+    - blockName: Soul Sand
+      blockPrefab: {fileID: 342578896464507272, guid: a9939ec98dd94864db86a1f8e72daa6c, type: 3}
+      patchCoverage: 0.35
+      veinScale: 0.12
+    - blockName: Magma Blocks
+      blockPrefab: {fileID: 2592617803214652086, guid: 285e9025374f0734eabd0f098e5dd9ca, type: 3}
+      patchCoverage: 0.35
+      veinScale: 0.12
+    maxElevationHeight: 3
+    terrainNoiseScale: 0.1
+    elevationThreshold: 0.4
     structurePool: []
     minStructures: 2
     maxStructures: 5
@@ -363,31 +467,76 @@ MonoBehaviour:
       spawnWeight: 0
   - themeName: Bastion
     themeSelectionWeight: 1
-    floorBlocks:
-    - {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
-    - {fileID: 2592617803214652086, guid: 285e9025374f0734eabd0f098e5dd9ca, type: 3}
-    - {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
-    - {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
-    wallPrefab: {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
+    primarySurfaceBlock: {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
+    subSurfaceBlock: {fileID: 2964662050956681169, guid: 6460945f1a662ef459c88f990f03d329, type: 3}
+    wallPrefab: {fileID: 4400742326441586218, guid: 48a72897444c2d8429b2c7cdd8e55610, type: 3}
     hazardPrefab: {fileID: 3793849012309999058, guid: 36e62e2ca314f1a49a86174d1b43ce8f, type: 3}
+    blockPatches:
+    - blockName: Magma Blocks
+      blockPrefab: {fileID: 2592617803214652086, guid: 285e9025374f0734eabd0f098e5dd9ca, type: 3}
+      patchCoverage: 0.3
+      veinScale: 0.15
+    - blockName: Blackstone Slabs
+      blockPrefab: {fileID: 8697241291516057722, guid: 5988c9536747f3b458317195353a1dd8, type: 3}
+      patchCoverage: 0.1
+      veinScale: 0
+    - blockName: Soul Sand
+      blockPrefab: {fileID: 342578896464507272, guid: a9939ec98dd94864db86a1f8e72daa6c, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.1
+    - blockName: Netherrack Blocks
+      blockPrefab: {fileID: 5361717450312470807, guid: bd027eba913b12b428d167f0c907a2a1, type: 3}
+      patchCoverage: 0.25
+      veinScale: 0.125
+    maxElevationHeight: 2
+    terrainNoiseScale: 0.09
+    elevationThreshold: 0.48
     structurePool:
     - structureName: Gold Block Cluster
       structurePrefab: {fileID: 4735493219983132522, guid: 4aa01744937244b4db1cbb76761ca004, type: 3}
       spawnWeight: 10
-      yOffset: 0
+      yOffset: 1
       randomizeRotation: 1
     - structureName: Gold Block
       structurePrefab: {fileID: 282132192367751760, guid: 422ea16f18fc1864f910ecf5e5582d08, type: 3}
       spawnWeight: 4
-      yOffset: 0
+      yOffset: 1
       randomizeRotation: 0
     minStructures: 2
     maxStructures: 5
     mobPool:
     - mobName: Piglin Brute
       mobPrefab: {fileID: 0}
-      spawnWeight: 0
+      spawnWeight: 1
     - mobName: Piglins
+      mobPrefab: {fileID: 0}
+      spawnWeight: 1
+  - themeName: The Desert
+    themeSelectionWeight: 1
+    primarySurfaceBlock: {fileID: 2799335884606096766, guid: bd1237cd1005e7e4f9da482e0cd5add1, type: 3}
+    subSurfaceBlock: {fileID: 2649207656210969167, guid: e8febdc06dbeb7149866ca1540f3290f, type: 3}
+    wallPrefab: {fileID: 7560381748431985135, guid: 81150aa9da767d4408b96ea678f866e8, type: 3}
+    hazardPrefab: {fileID: 0}
+    blockPatches: []
+    maxElevationHeight: 3
+    terrainNoiseScale: 0.1
+    elevationThreshold: 0.45
+    structurePool:
+    - structureName: Cactus
+      structurePrefab: {fileID: 7759929712724973085, guid: a2646a19063854340a18c4d292594906, type: 3}
+      spawnWeight: 5
+      yOffset: 1
+      randomizeRotation: 0
+    minStructures: 4
+    maxStructures: 6
+    mobPool:
+    - mobName: Zombie
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+    - mobName: Skeleton
+      mobPrefab: {fileID: 0}
+      spawnWeight: 0
+    - mobName: Creeper
       mobPrefab: {fileID: 0}
       spawnWeight: 0
   spawnElevatorPrefab: {fileID: 6828158009164153187, guid: d19cfa9c99a65f64595425bd51e39183, type: 3}

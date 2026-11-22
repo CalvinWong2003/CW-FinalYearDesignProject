@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class TowerGeneratorScript : MonoBehaviour
 {
-    public enum FloorPatternStyle { RandomScatter, Checkered, ConcentricRings }
+    [System.Serializable]
+    public class BlockPatchData
+    {
+        public string blockName; // e.g., "Stone", "Dirt", "Nether Quartz Ore", "Blackstone"
+        public GameObject blockPrefab;
+        [Range(0.01f, 1f)]
+        [Tooltip("How much of the floor this block patch covers (higher = larger/more frequent spots)")]
+        public float patchCoverage = 0.25f;
+        [Range(0.05f, 0.5f)]
+        [Tooltip("Noise scale for this vein/spot (lower = big broad patches, higher = small scattered spots)")]
+        public float veinScale = 0.18f;
+    }
 
     [System.Serializable]
     public class MobSpawnData
@@ -17,10 +28,10 @@ public class TowerGeneratorScript : MonoBehaviour
     [System.Serializable]
     public class StructureSpawnData
     {
-        public string structureName; // e.g., "Ore Cluster", "Cactus", "Ruined Pillar"
+        public string structureName; // e.g., "Ore Cluster", "Cactus", "Oak Tree"
         public GameObject structurePrefab;
         [Range(1, 100)] public int spawnWeight = 10;
-        [Tooltip("Vertical offset from the top of the floor block (default 1.0 rests on top of floor)")]
+        [Tooltip("Vertical offset from the top surface of the block it spawns on (default 1.0 rests right on top)")]
         public float yOffset = 1.0f;
         [Tooltip("Allow random 90-degree Y rotations for visual variety")]
         public bool randomizeRotation = true;
@@ -29,23 +40,38 @@ public class TowerGeneratorScript : MonoBehaviour
     [System.Serializable]
     public class BiomeTheme
     {
-        public string themeName; // e.g., "Desert", "Overworld", "Nether", "Deep Dark"
+        public string themeName; // e.g., "Overworld", "Nether", "Desert"
         [Range(1, 100)] public int themeSelectionWeight = 10;
 
-        [Header("Block & Visual Palette")]
-        [Tooltip("Add thematic blocks here (e.g. Desert: Sand, Sandstone, Smooth Sandstone)")]
-        public GameObject[] floorBlocks;
+        [Header("Base & Sub-Surface Blocks")]
+        [Tooltip("Main top surface block (e.g., Grass Block, Netherrack, Sand)")]
+        public GameObject primarySurfaceBlock;
+        [Tooltip("Block placed underneath raised terrain steps (e.g., Dirt under Grass, Netherrack, Sandstone). Falls back to primary if empty.")]
+        public GameObject subSurfaceBlock;
         public GameObject wallPrefab;
-        public GameObject hazardPrefab; // e.g., Magma Block for Nether, Quicksand/Trap for Desert
+        public GameObject hazardPrefab;
+
+        [Header("Organic Block Spots / Veins")]
+        [Tooltip("Different block spots mixed naturally into the floor (e.g., Stone, Dirt, Gold/Quartz Ore, Blackstone)")]
+        public List<BlockPatchData> blockPatches = new List<BlockPatchData>();
+
+        [Header("Terrain Elevation (Stepped Voxel Hills)")]
+        [Range(0, 4)]
+        [Tooltip("Max extra block layers stacked above the base floor (0 = flat, 2-3 = stepped hills like Minecraft)")]
+        public int maxElevationHeight = 2;
+        [Range(0.03f, 0.25f)]
+        [Tooltip("Controls the size and shape of elevated terrain plateaus (lower = larger hills, higher = smaller mounds)")]
+        public float terrainNoiseScale = 0.09f;
+        [Range(0.2f, 0.8f)]
+        [Tooltip("Threshold above which terrain rises (lower = more raised terrain, higher = mostly flat with islands)")]
+        public float elevationThreshold = 0.48f;
 
         [Header("Thematic Structures (3 - 5 per floor)")]
-        [Tooltip("Prefabs such as ore clusters, cacti, pillars, or crystal formations")]
         public List<StructureSpawnData> structurePool = new List<StructureSpawnData>();
         [Min(0)] public int minStructures = 3;
         [Min(0)] public int maxStructures = 5;
 
         [Header("Thematic Mob Pool")]
-        [Tooltip("The mobs eligible to spawn on this specific biome floor")]
         public List<MobSpawnData> mobPool = new List<MobSpawnData>();
     }
 
@@ -62,7 +88,6 @@ public class TowerGeneratorScript : MonoBehaviour
     [Range(1, 10)] public int wallHeight = 10;
 
     [Header("Biome Theming System")]
-    [Tooltip("Define multiple biomes with their own block palettes, walls, structures, and mob rosters")]
     public List<BiomeTheme> biomeThemes = new List<BiomeTheme>();
 
     [Header("Elevator & Exit Gateways")]
@@ -79,11 +104,13 @@ public class TowerGeneratorScript : MonoBehaviour
 
     // Internal Grid: 0 = Empty, 1 = Floor, 2 = Wall, 3 = Spawn, 4 = Exit, 5 = Hazard, 6 = Structure
     private int[,] arenaGrid;
+    // Stores the top block Y-level for every coordinate (0 = base floor, 1+ = elevated voxel steps)
+    private int[,] heightMap;
+    // Stores which prefab goes on the surface of each tile
+    private GameObject[,] surfaceBlockMap;
+
     private Vector2Int spawnPos;
     private Vector2Int exitPos;
-
-    // Tracks which specific block from the active theme's palette goes onto each grid cell
-    private int[,] floorVisualMatrix;
     private BiomeTheme currentTheme;
 
     private void Start()
@@ -102,21 +129,17 @@ public class TowerGeneratorScript : MonoBehaviour
         totalMobsSpawned = 0;
         totalStructuresSpawned = 0;
 
-        // Clear previous layer objects (handles both Editor ContextMenu and runtime)
+        // Clear previous layer objects safely in both Edit Mode and Play Mode
         for (int i = transform.childCount - 1; i >= 0; i--)
         {
             GameObject child = transform.GetChild(i).gameObject;
             if (Application.isPlaying)
-            {
                 Destroy(child);
-            }
             else
-            {
                 DestroyImmediate(child);
-            }
         }
 
-        // Select Biome Theme by weighted chance
+        // Select Biome Theme
         currentTheme = SelectBiomeTheme();
         if (currentTheme == null)
         {
@@ -124,44 +147,49 @@ public class TowerGeneratorScript : MonoBehaviour
             return;
         }
 
-        Debug.Log($"[PCG System] Floor {currentFloor} selected Theme: {currentTheme.themeName} (Seed: {floorSeed})");
+        Debug.Log($"[PCG System] Floor {currentFloor} Theme: {currentTheme.themeName} (Seed: {floorSeed})");
 
         arenaGrid = new int[gridWidth, gridLength];
-        floorVisualMatrix = new int[gridWidth, gridLength];
+        heightMap = new int[gridWidth, gridLength];
+        surfaceBlockMap = new GameObject[gridWidth, gridLength];
 
-        FloorPatternStyle activePattern = (FloorPatternStyle)UnityEngine.Random.Range(0, Enum.GetValues(typeof(FloorPatternStyle)).Length);
+        // Random noise offsets per floor so every floor's hills and block patches have unique shapes
+        Vector2 elevationOffset = new Vector2(UnityEngine.Random.Range(0f, 10000f), UnityEngine.Random.Range(0f, 10000f));
+        Vector2[] patchOffsets = new Vector2[currentTheme.blockPatches.Count];
+        for (int i = 0; i < patchOffsets.Length; i++)
+        {
+            patchOffsets[i] = new Vector2(UnityEngine.Random.Range(0f, 10000f), UnityEngine.Random.Range(0f, 10000f));
+        }
 
-        int primaryBlockIndex = (currentTheme.floorBlocks != null && currentTheme.floorBlocks.Length > 0)
-            ? UnityEngine.Random.Range(0, currentTheme.floorBlocks.Length)
-            : 0;
+        spawnPos = new Vector2Int(gridWidth / 2, 1);
+        exitPos = new Vector2Int(gridWidth / 2, gridLength - 2);
 
-        int secondaryBlockIndex = (currentTheme.floorBlocks != null && currentTheme.floorBlocks.Length > 0)
-            ? (primaryBlockIndex + 1) % currentTheme.floorBlocks.Length
-            : 0;
-
-        Vector2Int center = new Vector2Int(gridWidth / 2, gridLength / 2);
-
-        // 2. Structural & Aesthetic Pass
+        // 2. Organic Voxel Terrain & Block Patch Pass
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridLength; z++)
             {
                 if (x == 0 || x == gridWidth - 1 || z == 0 || z == gridLength - 1)
                 {
-                    arenaGrid[x, z] = 2; // Wall boundary
+                    arenaGrid[x, z] = 2; // Perimeter wall
+                    heightMap[x, z] = 0;
                 }
                 else
                 {
-                    arenaGrid[x, z] = 1; // Playable floor
-                    float dist = Vector2.Distance(new Vector2(x, z), new Vector2(center.x, center.y));
-                    floorVisualMatrix[x, z] = DeterminePatternBlock(x, z, dist, activePattern, primaryBlockIndex, secondaryBlockIndex);
+                    arenaGrid[x, z] = 1; // Playable terrain
+
+                    // Calculate stepped voxel elevation using Perlin noise
+                    heightMap[x, z] = CalculateTerrainHeight(x, z, elevationOffset);
+
+                    // Determine surface block (primary block vs organic spots of secondary blocks)
+                    surfaceBlockMap[x, z] = DetermineSurfaceBlock(x, z, patchOffsets);
                 }
             }
         }
 
-        // Spawn and Exit positions
-        spawnPos = new Vector2Int(center.x, 1);
-        exitPos = new Vector2Int(center.x, gridLength - 2);
+        // Flatten a small 3x3 pad around Spawn and Exit so the elevator & gate sit cleanly
+        FlattenAreaAround(spawnPos, 1, heightMap[spawnPos.x, spawnPos.y]);
+        FlattenAreaAround(exitPos, 1, heightMap[exitPos.x, exitPos.y]);
 
         arenaGrid[spawnPos.x, spawnPos.y] = 3;
         arenaGrid[exitPos.x, exitPos.y] = 4;
@@ -170,17 +198,80 @@ public class TowerGeneratorScript : MonoBehaviour
         ApplyHazardPass();
         ApplyStructurePass();
 
-        // 4. Path Validation (ensures structures don't wall off the exit)
+        // 4. Navigable Path Validation (ensures max 1-block step-ups and unblocked route)
         if (!IsCriticalPathValid(spawnPos, exitPos))
         {
-            Debug.LogWarning("[PCG System] Critical path blocked by structures! Regenerating...");
+            Debug.LogWarning("[PCG System] Terrain cliffs or structures blocked path! Regenerating...");
+            towerSeed++; // Shift seed slightly to guarantee a fresh layout
             GenerateFloor();
             return;
         }
 
-        // 5. Geometry & Entity Instantiation
+        // 5. Instantiate Voxel Blocks, Elevated Layers, Structures & Mobs
         InstantiateVisuals();
         ApplyMobSpawningPass();
+    }
+
+    private int CalculateTerrainHeight(int x, int z, Vector2 noiseOffset)
+    {
+        if (currentTheme.maxElevationHeight <= 0) return 0;
+
+        float sampleX = (x * currentTheme.terrainNoiseScale) + noiseOffset.x;
+        float sampleZ = (z * currentTheme.terrainNoiseScale) + noiseOffset.y;
+
+        // Combine primary shape noise with subtle detail noise for natural irregular edges
+        float primaryNoise = Mathf.PerlinNoise(sampleX, sampleZ);
+        float detailNoise = Mathf.PerlinNoise(sampleX * 2.2f + 31.7f, sampleZ * 2.2f + 17.3f) * 0.2f;
+        float combined = Mathf.Clamp01(primaryNoise * 0.85f + detailNoise);
+
+        if (combined < currentTheme.elevationThreshold)
+            return 0;
+
+        // Map remaining noise range [elevationThreshold .. 1.0] into discrete integer block heights [1 .. maxElevationHeight]
+        float normalizedHeight = Mathf.InverseLerp(currentTheme.elevationThreshold, 0.92f, combined);
+        int blockSteps = Mathf.CeilToInt(normalizedHeight * currentTheme.maxElevationHeight);
+        return Mathf.Clamp(blockSteps, 0, currentTheme.maxElevationHeight);
+    }
+
+    private GameObject DetermineSurfaceBlock(int x, int z, Vector2[] patchOffsets)
+    {
+        if (currentTheme.blockPatches != null)
+        {
+            for (int i = 0; i < currentTheme.blockPatches.Count; i++)
+            {
+                BlockPatchData patch = currentTheme.blockPatches[i];
+                if (patch.blockPrefab == null) continue;
+
+                float nx = (x * patch.veinScale) + patchOffsets[i].x;
+                float nz = (z * patch.veinScale) + patchOffsets[i].y;
+                float noiseVal = Mathf.PerlinNoise(nx, nz);
+
+                // Higher patchCoverage lowers the threshold so larger/more frequent spots appear
+                float threshold = 1f - patch.patchCoverage;
+                if (noiseVal >= threshold)
+                {
+                    return patch.blockPrefab;
+                }
+            }
+        }
+
+        return currentTheme.primarySurfaceBlock;
+    }
+
+    private void FlattenAreaAround(Vector2Int center, int radius, int targetHeight)
+    {
+        for (int dx = -radius; dx <= radius; dx++)
+        {
+            for (int dz = -radius; dz <= radius; dz++)
+            {
+                int nx = center.x + dx;
+                int nz = center.y + dz;
+                if (nx > 0 && nx < gridWidth - 1 && nz > 0 && nz < gridLength - 1)
+                {
+                    heightMap[nx, nz] = targetHeight;
+                }
+            }
+        }
     }
 
     private BiomeTheme SelectBiomeTheme()
@@ -197,30 +288,10 @@ public class TowerGeneratorScript : MonoBehaviour
         {
             runningWeight += Mathf.Max(1, theme.themeSelectionWeight);
             if (roll < runningWeight)
-            {
                 return theme;
-            }
         }
 
         return biomeThemes[0];
-    }
-
-    private int DeterminePatternBlock(int x, int z, float dist, FloorPatternStyle style, int primary, int secondary)
-    {
-        if (currentTheme.floorBlocks == null || currentTheme.floorBlocks.Length <= 1) return 0;
-
-        switch (style)
-        {
-            case FloorPatternStyle.Checkered:
-                return ((x + z) % 2 == 0) ? primary : secondary;
-
-            case FloorPatternStyle.ConcentricRings:
-                return (Mathf.FloorToInt(dist) % 2 == 0) ? primary : secondary;
-
-            case FloorPatternStyle.RandomScatter:
-            default:
-                return (UnityEngine.Random.value < 0.25f) ? secondary : primary;
-        }
     }
 
     private bool IsCriticalPathValid(Vector2Int start, Vector2Int end)
@@ -238,14 +309,21 @@ public class TowerGeneratorScript : MonoBehaviour
             Vector2Int current = queue.Dequeue();
             if (current == end) return true;
 
+            int currentHeight = heightMap[current.x, current.y];
+
             foreach (var dir in directions)
             {
                 Vector2Int neighbor = current + dir;
                 if (neighbor.x >= 0 && neighbor.x < gridWidth && neighbor.y >= 0 && neighbor.y < gridLength)
                 {
                     int tile = arenaGrid[neighbor.x, neighbor.y];
-                    // Walls (2) and Structures (6) act as solid obstacles
-                    if (!visited.Contains(neighbor) && tile != 2 && tile != 6)
+                    int neighborHeight = heightMap[neighbor.x, neighbor.y];
+
+                    // Walkable if not a wall (2) or structure (6) AND elevation step is <= 1 block high
+                    if (!visited.Contains(neighbor) &&
+                        tile != 2 &&
+                        tile != 6 &&
+                        Mathf.Abs(neighborHeight - currentHeight) <= 1)
                     {
                         visited.Add(neighbor);
                         queue.Enqueue(neighbor);
@@ -283,14 +361,11 @@ public class TowerGeneratorScript : MonoBehaviour
         foreach (var s in currentTheme.structurePool)
         {
             if (s.structurePrefab != null)
-            {
                 totalStructureWeight += Mathf.Max(1, s.spawnWeight);
-            }
         }
 
         if (totalStructureWeight == 0) return;
 
-        // Gather all valid interior floor coordinates (1 tile buffer from outer walls, away from spawn/exit)
         List<Vector2Int> validSpots = new List<Vector2Int>();
         for (int x = 2; x < gridWidth - 2; x++)
         {
@@ -305,7 +380,6 @@ public class TowerGeneratorScript : MonoBehaviour
             }
         }
 
-        // Determine target count (between 3 and 5 by default)
         int minCount = Mathf.Min(currentTheme.minStructures, currentTheme.maxStructures);
         int maxCount = Mathf.Max(currentTheme.minStructures, currentTheme.maxStructures);
         int targetStructures = UnityEngine.Random.Range(minCount, maxCount + 1);
@@ -318,7 +392,6 @@ public class TowerGeneratorScript : MonoBehaviour
             Vector2Int candidate = validSpots[randIndex];
             validSpots.RemoveAt(randIndex);
 
-            // Enforce minimum 3-block spacing between structures so they don't clump awkwardly
             bool tooClose = false;
             foreach (var placed in placedPositions)
             {
@@ -334,10 +407,12 @@ public class TowerGeneratorScript : MonoBehaviour
             StructureSpawnData selectedStructure = PickWeightedStructure(totalStructureWeight);
             if (selectedStructure != null && selectedStructure.structurePrefab != null)
             {
-                arenaGrid[candidate.x, candidate.y] = 6; // Mark cell as occupied by a structure
+                arenaGrid[candidate.x, candidate.y] = 6;
                 placedPositions.Add(candidate);
 
-                Vector3 spawnWorldPos = new Vector3(candidate.x, selectedStructure.yOffset, candidate.y);
+                // Spawn on top of the terrain's exact elevation at (candidate.x, candidate.y)
+                int surfaceY = heightMap[candidate.x, candidate.y];
+                Vector3 spawnWorldPos = new Vector3(candidate.x, surfaceY + selectedStructure.yOffset, candidate.y);
                 Quaternion rot = selectedStructure.randomizeRotation
                     ? Quaternion.Euler(0f, UnityEngine.Random.Range(0, 4) * 90f, 0f)
                     : Quaternion.identity;
@@ -360,9 +435,7 @@ public class TowerGeneratorScript : MonoBehaviour
 
             running += Mathf.Max(1, structure.spawnWeight);
             if (roll < running)
-            {
                 return structure;
-            }
         }
 
         return null;
@@ -370,72 +443,81 @@ public class TowerGeneratorScript : MonoBehaviour
 
     private void InstantiateVisuals()
     {
+        GameObject fillerBlock = currentTheme.subSurfaceBlock != null
+            ? currentTheme.subSurfaceBlock
+            : currentTheme.primarySurfaceBlock;
+
         for (int x = 0; x < gridWidth; x++)
         {
             for (int z = 0; z < gridLength; z++)
             {
-                Vector3 targetPos = new Vector3(x, 0, z);
+                int surfaceY = heightMap[x, z];
 
                 switch (arenaGrid[x, z])
                 {
-                    case 1: // Base Thematic Floor Block
-                    case 6: // Floor Block underneath a Structure
-                        SpawnFloorTile(x, z, targetPos);
+                    case 1: // Playable Voxel Terrain
+                    case 6: // Terrain underneath a Structure
+                        SpawnTerrainColumn(x, z, surfaceY, surfaceBlockMap[x, z], fillerBlock);
                         break;
 
-                    case 2: // Wall Stacking (up to wallHeight)
-                        GameObject wallPrefabToUse = currentTheme.wallPrefab != null ? currentTheme.wallPrefab : null;
-                        if (wallPrefabToUse != null)
+                    case 2: // Perimeter Wall Boundary
+                        if (currentTheme.wallPrefab != null)
                         {
                             for (int y = 0; y < wallHeight; y++)
                             {
-                                Instantiate(wallPrefabToUse, targetPos + (Vector3.up * y), Quaternion.identity, transform);
+                                Instantiate(currentTheme.wallPrefab, new Vector3(x, y, z), Quaternion.identity, transform);
                             }
                         }
                         break;
 
                     case 3: // Entrance Elevator
-                        SpawnFloorTile(x, z, targetPos);
+                        SpawnTerrainColumn(x, z, surfaceY, surfaceBlockMap[x, z], fillerBlock);
                         if (spawnElevatorPrefab != null)
                         {
-                            Vector3 elevatorPos = targetPos + Vector3.up * 1.0f;
+                            Vector3 elevatorPos = new Vector3(x, surfaceY + 1.0f, z);
                             Quaternion elevatorRot = Quaternion.Euler(spawnElevatorRotationOffset);
                             Instantiate(spawnElevatorPrefab, elevatorPos, elevatorRot, transform);
                         }
                         break;
 
                     case 4: // Exit Gateway
-                        SpawnFloorTile(x, z, targetPos);
+                        SpawnTerrainColumn(x, z, surfaceY, surfaceBlockMap[x, z], fillerBlock);
                         if (exitGatePrefab != null)
                         {
-                            Vector3 gatePos = targetPos + Vector3.up * 1.0f;
+                            Vector3 gatePos = new Vector3(x, surfaceY + 1.0f, z);
                             Quaternion gateRot = Quaternion.Euler(exitGateRotationOffset);
                             Instantiate(exitGatePrefab, gatePos, gateRot, transform);
                         }
                         break;
 
-                    case 5: // Thematic Hazard
-                        GameObject hazardToUse = currentTheme.hazardPrefab != null ? currentTheme.hazardPrefab : null;
-                        if (hazardToUse != null)
-                        {
-                            Instantiate(hazardToUse, targetPos, Quaternion.identity, transform);
-                        }
-                        else
-                        {
-                            SpawnFloorTile(x, z, targetPos);
-                        }
+                    case 5: // Thematic Hazard (replaces top block at current terrain height)
+                        GameObject hazardTop = currentTheme.hazardPrefab != null
+                            ? currentTheme.hazardPrefab
+                            : surfaceBlockMap[x, z];
+                        SpawnTerrainColumn(x, z, surfaceY, hazardTop, fillerBlock);
                         break;
                 }
             }
         }
     }
 
-    private void SpawnFloorTile(int x, int z, Vector3 pos)
+    /// <summary>
+    /// Stacks filler blocks from Y=0 up to surfaceY-1, then places the top surface block at Y=surfaceY.
+    /// Ensures raised terrain plateaus are solid 1x1x1 voxel columns with no gaps.
+    /// </summary>
+    private void SpawnTerrainColumn(int x, int z, int surfaceY, GameObject topBlock, GameObject underBlock)
     {
-        if (currentTheme.floorBlocks != null && currentTheme.floorBlocks.Length > 0)
+        if (underBlock != null)
         {
-            int blockIdx = floorVisualMatrix[x, z];
-            Instantiate(currentTheme.floorBlocks[blockIdx], pos, Quaternion.identity, transform);
+            for (int y = 0; y < surfaceY; y++)
+            {
+                Instantiate(underBlock, new Vector3(x, y, z), Quaternion.identity, transform);
+            }
+        }
+
+        if (topBlock != null)
+        {
+            Instantiate(topBlock, new Vector3(x, surfaceY, z), Quaternion.identity, transform);
         }
     }
 
@@ -447,9 +529,7 @@ public class TowerGeneratorScript : MonoBehaviour
         foreach (var mob in currentTheme.mobPool)
         {
             if (mob.mobPrefab != null)
-            {
                 totalMobWeight += Mathf.Max(1, mob.spawnWeight);
-            }
         }
 
         if (totalMobWeight == 0) return;
@@ -458,7 +538,6 @@ public class TowerGeneratorScript : MonoBehaviour
         {
             for (int z = 1; z < gridLength - 1; z++)
             {
-                // Only spawn mobs on open playable floor tiles (arenaGrid == 1), avoiding structures (6) and hazards (5)
                 if (arenaGrid[x, z] == 1 && Vector2Int.Distance(new Vector2Int(x, z), spawnPos) > 4f)
                 {
                     if (UnityEngine.Random.value < mobSpawnRate)
@@ -466,7 +545,8 @@ public class TowerGeneratorScript : MonoBehaviour
                         GameObject selectedMobPrefab = PickWeightedMob(totalMobWeight);
                         if (selectedMobPrefab != null)
                         {
-                            Vector3 spawnWorldPos = new Vector3(x, 1.0f, z);
+                            int surfaceY = heightMap[x, z];
+                            Vector3 spawnWorldPos = new Vector3(x, surfaceY + 1.0f, z);
                             GameObject mobObj = Instantiate(selectedMobPrefab, spawnWorldPos, Quaternion.identity, transform);
                             mobObj.name = $"{selectedMobPrefab.name}_Floor{currentFloor}_{totalMobsSpawned}";
                             totalMobsSpawned++;
@@ -488,9 +568,7 @@ public class TowerGeneratorScript : MonoBehaviour
 
             running += Mathf.Max(1, mob.spawnWeight);
             if (roll < running)
-            {
                 return mob.mobPrefab;
-            }
         }
 
         return null;
